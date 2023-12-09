@@ -3,7 +3,6 @@
 ### For actually reversing the procotol of Ebyte E32
 
 import radio
-import time
 
 modem = radio.get_modem()
 
@@ -15,18 +14,18 @@ def getKey(channelNo):
 
 
 def decode_msg(data):
-    
+
     decoded = ""
-    eKey = getKey(data[1]) 
-    
+    eKey = getKey(data[1])
+
     print(f"Calculated key: {eKey}")
-    
+
     hex_data = [hex(b) for b in data]
     print(f"Received data: {hex_data}")
-    
+
     for b in range(4, len(data)-1):
         decoded += chr(data[b] ^ eKey)
-    
+
     return decoded
 
 
@@ -39,17 +38,17 @@ def calcCheckSum(buf):
 
 
 def prepare_packet(msg):
-    
+
     enc_msg = bytearray(msg.encode('utf-8'))
     packet_buf = bytearray()
 
     packet_buf.append(len(enc_msg))   # append data size
-    
+
     # Index of the encryption key. Drove me crazy until I figured this out.
     # Starts from D0 and is incremented by 0x08
     # for every new added byte in the data
     packet_buf.append(0xD0 + 0x08 * (len(msg)-1) )
-    
+
     packet_buf.append(0x00)   # dev address high bit
     packet_buf.append(0x00)   # dev address low bit
 
@@ -58,9 +57,9 @@ def prepare_packet(msg):
         packet_buf.append(ch ^ getKey(packet_buf[1])) # encrypt each char with channel No
 
     packet_buf.append(calcCheckSum(packet_buf))
-    
+
     print(f"Raw packet: {packet_buf}")
-    
+
     return packet_buf
 
 
@@ -81,5 +80,4 @@ send("Hey, it works!")
 #receive()
 
 
-        
-            
+
