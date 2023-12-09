@@ -1,0 +1,19 @@
+* Ebyte [[https://www.ebyte.com/en/product-view-news.html?id=132][E32-868T20D]] reversed protocol in Micropython
+
+**Most of the heavy lifting was done by the guys from [[https://github.com/sandeepmistry/arduino-LoRa/issues/203][this thread]]**
+
+
+The other test chip is sx1262 on Lilygo's T-deck on 868Mhz. The driving mcu is esp32 with latest micropython installed.
+
+1. You have to install Lora package with 'mip' on the board, once you connect to wifi.
+
+2. Transmit and receive working both ways.
+
+3. e32 is on defaults:
+   - channel 0x06
+   - address: 0x0000
+   - mode: transparent
+
+4. FEC has to *off* on e32.
+   You can either use the utility provided by ebyte or set it by putting M0 and M1 pins to low and sending the settings bytes.
+   I'll probably try to implement FEC at some stage.
