@@ -1,6 +1,6 @@
 * Ebyte [[https://www.ebyte.com/en/product-view-news.html?id=132][E32-868T20D]] reversed protocol in Micropython
 
-**Most of the heavy lifting was done by the guys from [[https://github.com/sandeepmistry/arduino-LoRa/issues/203][this thread]]**
+**Most of the heavy lifting was done by the guys from [[https://github.com/sandeepmistry/arduino-LoRa/issues/203][this thread]]
 
 
 The other test chip is sx1262 on Lilygo's T-deck on 868Mhz. The driving mcu is esp32 with latest micropython installed.
